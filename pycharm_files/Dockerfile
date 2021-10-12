@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.9-slim
 COPY ./src /app/src
 COPY ./requirements.txt /app
 COPY ./model.pkl /app
