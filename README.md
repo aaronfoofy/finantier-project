@@ -68,10 +68,30 @@ DOCKER
 ########################################################################################################################################
 The Dockerfile contained within the pycharm files aims to create a docker image which will run the API instructions conttained within
 main.py with the endpoint set as localhost.
-Note that when running the dockerimage, remeber to set the ports and container name in order to find the container and subsequently 
+Note that when running the dockerimage from docker desktop, remeber to set the ports and container name in order to find the container and subsequently 
 open it in browser while it is running.
 
-After typing localhost:8000 in your browser a "Hello, stranger" message will appear. In order to interact with our model,
+After locating the running container on docker desktop and selecting the 'open in browser option'a "Hello, stranger" message should appear. In order to interact with our model,
 we have to add a /docs to the end of the url where we will reach the swagger UI to visualise our GETs and POSTs in main.py.
 
 POST/predict will allow one to interact with the model by entering appropriate responses for the matching entries eg: "gender" : "Male".
+
+
+
+
+*note that in windows command line we follow the following steps to push a dockerimage to github:
+1) Set up a PAT (personal access token) on github with read,write and delete package permissions.
+2) Load the PAT into an environment variable using the command:
+set CR_PAT=YOURPATTOKEN 
+YOURPATTOKEN is your actual key given when you create the token eg:fhgjervbieuvbiuwuier97897dsd
+3) Login to ghcr.io the container registry service with the following command:
+echo %CR_PAT% | docker login ghcr.io -u USERNAME --password-stdin
+USERNAME is your actual github username eg:aaronfoofy
+4) We then proceed to tag the image we want to push with the following format:
+ghcr.io/USERNAME/IMAGE_NAME
+There are several methods to tag, I find the easiest is to use the image ID with the following command:
+docker tag IMAGE_ID new_tag_name 
+where in this case the new_tag_name is simply ghcr.io/USERNAME/IMAGE_NAME
+5) FINALLY, we push the image to the github container registry with the command:
+docker push ghcr.io/USERNAME/IMAGE_NAME 
+eg docker push ghcr.io/aaronfoofy/finantier
