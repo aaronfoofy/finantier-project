@@ -1,0 +1,19 @@
+name: Docker Series Builds
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+      run: |
+        docker build ./nodejs -t aimvector/nodejs:1.0.0
+    - name: docker build python
+    - name: docker push
+      run: |
+        docker push aimvector/python:1.0.0
